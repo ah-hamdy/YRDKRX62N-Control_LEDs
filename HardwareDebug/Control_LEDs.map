@@ -1,0 +1,365 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+RAM              0x00000000         0x00018000
+ROM              0xfff80000         0x00080000
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+
+.fvectors       0xffffff80       0x80
+ *(.fvectors)
+ .fvectors      0xffffff80       0x80 ./src/vector_table.o
+                0xffffff80                HardwareVectors
+
+.text           0xfff80000      0xa86
+ *(.text)
+ .text          0xfff80000       0x7a ./src/reset_program.o
+                0xfff80000                PowerON_Reset
+ *(.text.*)
+ *(P)
+ P              0xfff8007a      0x4b5 ./src/Control_LEDs.o
+                0xfff8007a                main
+ P              0xfff8052f        0x7 ./src/hardware_setup.o
+                0xfff8052f                HardwareSetup
+ P              0xfff80536      0x550 ./src/interrupt_handlers.o
+                0xfff80536                INT_Excep_SuperVisorInst
+                0xfff8053e                INT_Excep_AccessInst
+                0xfff80546                INT_Excep_UndefinedInst
+                0xfff8054e                INT_Excep_FloatingPoint
+                0xfff80556                INT_NonMaskableInterrupt
+                0xfff8055e                Dummy
+                0xfff80566                INT_Excep_BRK
+                0xfff8056e                INT_Excep_BSC_BUSERR
+                0xfff80576                INT_Excep_FCU_FIFERR
+                0xfff8057e                INT_Excep_FCU_FRDYI
+                0xfff80586                INT_Excep_ICU_SWINT
+                0xfff8058e                INT_Excep_CMT0_CMI0
+                0xfff80596                INT_Excep_CMT1_CMI1
+                0xfff8059e                INT_Excep_CMT2_CMI2
+                0xfff805a6                INT_Excep_CMT3_CMI3
+                0xfff805ae                INT_Excep_ETHER_EINT
+                0xfff805b6                INT_Excep_USB0_D0FIFO0
+                0xfff805be                INT_Excep_USB0_D1FIFO0
+                0xfff805c6                INT_Excep_USB0_USBI0
+                0xfff805ce                INT_Excep_USB1_D0FIFO1
+                0xfff805d6                INT_Excep_USB1_D1FIFO1
+                0xfff805de                INT_Excep_USB1_USBI1
+                0xfff805e6                INT_Excep_RSPI0_SPEI0
+                0xfff805ee                INT_Excep_RSPI0_SPRI0
+                0xfff805f6                INT_Excep_RSPI0_SPTI0
+                0xfff805fe                INT_Excep_RSPI0_SPII0
+                0xfff80606                INT_Excep_RSPI1_SPEI1
+                0xfff8060e                INT_Excep_RSPI1_SPRI1
+                0xfff80616                INT_Excep_RSPI1_SPTI1
+                0xfff8061e                INT_Excep_RSPI1_SPII1
+                0xfff80626                INT_Excep_CAN0_ERS0
+                0xfff8062e                INT_Excep_CAN0_RXF0
+                0xfff80636                INT_Excep_CAN0_TXF0
+                0xfff8063e                INT_Excep_CAN0_RXM0
+                0xfff80646                INT_Excep_CAN0_TXM0
+                0xfff8064e                INT_Excep_RTC_PRD
+                0xfff80656                INT_Excep_RTC_CUP
+                0xfff8065e                INT_Excep_ICU_IRQ0
+                0xfff80666                INT_Excep_ICU_IRQ1
+                0xfff8066e                INT_Excep_ICU_IRQ2
+                0xfff80676                INT_Excep_ICU_IRQ3
+                0xfff8067e                INT_Excep_ICU_IRQ4
+                0xfff80686                INT_Excep_ICU_IRQ5
+                0xfff8068e                INT_Excep_ICU_IRQ6
+                0xfff80696                INT_Excep_ICU_IRQ7
+                0xfff8069e                INT_Excep_ICU_IRQ8
+                0xfff806a6                INT_Excep_ICU_IRQ9
+                0xfff806ae                INT_Excep_ICU_IRQ10
+                0xfff806b6                INT_Excep_ICU_IRQ11
+                0xfff806be                INT_Excep_ICU_IRQ12
+                0xfff806c6                INT_Excep_ICU_IRQ13
+                0xfff806ce                INT_Excep_ICU_IRQ14
+                0xfff806d6                INT_Excep_ICU_IRQ15
+                0xfff806de                INT_Excep_USB_USBR0
+                0xfff806e6                INT_Excep_USB_USBR1
+                0xfff806ee                INT_Excep_RTC_ALM
+                0xfff806f6                INT_Excep_WDT_WOVI
+                0xfff806fe                INT_Excep_AD0_ADI0
+                0xfff80706                INT_Excep_AD1_ADI1
+                0xfff8070e                INT_Excep_S12AD_ADI
+                0xfff80716                INT_Excep_MTU0_TGIA0
+                0xfff8071e                INT_Excep_MTU0_TGIB0
+                0xfff80726                INT_Excep_MTU0_TGIC0
+                0xfff8072e                INT_Excep_MTU0_TGID0
+                0xfff80736                INT_Excep_MTU0_TCIV0
+                0xfff8073e                INT_Excep_MTU0_TGIE0
+                0xfff80746                INT_Excep_MTU0_TGIF0
+                0xfff8074e                INT_Excep_MTU1_TGIA1
+                0xfff80756                INT_Excep_MTU1_TGIB1
+                0xfff8075e                INT_Excep_MTU1_TCIV1
+                0xfff80766                INT_Excep_MTU1_TCIU1
+                0xfff8076e                INT_Excep_MTU2_TGIA2
+                0xfff80776                INT_Excep_MTU2_TGIB2
+                0xfff8077e                INT_Excep_MTU2_TCIV2
+                0xfff80786                INT_Excep_MTU2_TCIU2
+                0xfff8078e                INT_Excep_MTU3_TGIA3
+                0xfff80796                INT_Excep_MTU3_TGIB3
+                0xfff8079e                INT_Excep_MTU3_TGIC3
+                0xfff807a6                INT_Excep_MTU3_TGID3
+                0xfff807ae                INT_Excep_MTU3_TCIV3
+                0xfff807b6                INT_Excep_MTU4_TGIA4
+                0xfff807be                INT_Excep_MTU4_TGIB4
+                0xfff807c6                INT_Excep_MTU4_TGIC4
+                0xfff807ce                INT_Excep_MTU4_TGID4
+                0xfff807d6                INT_Excep_MTU4_TCIV4
+                0xfff807de                INT_Excep_MTU5_TGIU5
+                0xfff807e6                INT_Excep_MTU5_TGIV5
+                0xfff807ee                INT_Excep_MTU5_TGIW5
+                0xfff807f6                INT_Excep_MTU6_TGIA6
+                0xfff807fe                INT_Excep_MTU6_TGIB6
+                0xfff80806                INT_Excep_MTU6_TGIC6
+                0xfff8080e                INT_Excep_MTU6_TGID6
+                0xfff80816                INT_Excep_MTU6_TCIV6
+                0xfff8081e                INT_Excep_MTU6_TGIE6
+                0xfff80826                INT_Excep_MTU6_TGIF6
+                0xfff8082e                INT_Excep_MTU7_TGIA7
+                0xfff80836                INT_Excep_MTU7_TGIB7
+                0xfff8083e                INT_Excep_MTU7_TCIV7
+                0xfff80846                INT_Excep_MTU7_TCIU7
+                0xfff8084e                INT_Excep_MTU8_TGIA8
+                0xfff80856                INT_Excep_MTU8_TGIB8
+                0xfff8085e                INT_Excep_MTU8_TCIV8
+                0xfff80866                INT_Excep_MTU8_TCIU8
+                0xfff8086e                INT_Excep_MTU9_TGIA9
+                0xfff80876                INT_Excep_MTU9_TGIB9
+                0xfff8087e                INT_Excep_MTU9_TGIC9
+                0xfff80886                INT_Excep_MTU9_TGID9
+                0xfff8088e                INT_Excep_MTU9_TCIV9
+                0xfff80896                INT_Excep_MTU10_TGIA10
+                0xfff8089e                INT_Excep_MTU10_TGIB10
+                0xfff808a6                INT_Excep_MTU10_TGIC10
+                0xfff808ae                INT_Excep_MTU10_TGID10
+                0xfff808b6                INT_Excep_MTU10_TCIV10
+                0xfff808be                INT_Excep_MTU11_TGIU11
+                0xfff808c6                INT_Excep_MTU11_TGIV11
+                0xfff808ce                INT_Excep_MTU11_TGIW11
+                0xfff808d6                INT_Excep_POE_OEI1
+                0xfff808de                INT_Excep_POE_OEI2
+                0xfff808e6                INT_Excep_POE_OEI3
+                0xfff808ee                INT_Excep_POE_OEI4
+                0xfff808f6                INT_Excep_TMR0_CMIA0
+                0xfff808fe                INT_Excep_TMR0_CMIB0
+                0xfff80906                INT_Excep_TMR0_OVI0
+                0xfff8090e                INT_Excep_TMR1_CMIA1
+                0xfff80916                INT_Excep_TMR1_CMIB1
+                0xfff8091e                INT_Excep_TMR1_OVI1
+                0xfff80926                INT_Excep_TMR2_CMIA2
+                0xfff8092e                INT_Excep_TMR2_CMIB2
+                0xfff80936                INT_Excep_TMR2_OVI2
+                0xfff8093e                INT_Excep_TMR3_CMIA3
+                0xfff80946                INT_Excep_TMR3_CMIB3
+                0xfff8094e                INT_Excep_TMR3_OVI3
+                0xfff80956                INT_Excep_DMAC_DMAC0I
+                0xfff8095e                INT_Excep_DMAC_DMAC1I
+                0xfff80966                INT_Excep_DMAC_DMAC2I
+                0xfff8096e                INT_Excep_DMAC_DMAC3I
+                0xfff80976                INT_Excep_EXDMAC_EXDMAC0I
+                0xfff8097e                INT_Excep_EXDMAC_EXDMAC1I
+                0xfff80986                INT_Excep_SCI0_ERI0
+                0xfff8098e                INT_Excep_SCI0_RXI0
+                0xfff80996                INT_Excep_SCI0_TXI0
+                0xfff8099e                INT_Excep_SCI0_TEI0
+                0xfff809a6                INT_Excep_SCI1_ERI1
+                0xfff809ae                INT_Excep_SCI1_RXI1
+                0xfff809b6                INT_Excep_SCI1_TXI1
+                0xfff809be                INT_Excep_SCI1_TEI1
+                0xfff809c6                INT_Excep_SCI2_ERI2
+                0xfff809ce                INT_Excep_SCI2_RXI2
+                0xfff809d6                INT_Excep_SCI2_TXI2
+                0xfff809de                INT_Excep_SCI2_TEI2
+                0xfff809e6                INT_Excep_SCI3_ERI3
+                0xfff809ee                INT_Excep_SCI3_RXI3
+                0xfff809f6                INT_Excep_SCI3_TXI3
+                0xfff809fe                INT_Excep_SCI3_TEI3
+                0xfff80a06                INT_Excep_SCI5_ERI5
+                0xfff80a0e                INT_Excep_SCI5_RXI5
+                0xfff80a16                INT_Excep_SCI5_TXI5
+                0xfff80a1e                INT_Excep_SCI5_TEI5
+                0xfff80a26                INT_Excep_SCI6_ERI6
+                0xfff80a2e                INT_Excep_SCI6_RXI6
+                0xfff80a36                INT_Excep_SCI6_TXI6
+                0xfff80a3e                INT_Excep_SCI6_TEI6
+                0xfff80a46                INT_Excep_RIIC0_ICEEI0
+                0xfff80a4e                INT_Excep_RIIC0_ICRXI0
+                0xfff80a56                INT_Excep_RIIC0_ICTXI0
+                0xfff80a5e                INT_Excep_RIIC0_ICTEI0
+                0xfff80a66                INT_Excep_RIIC1_ICEEI1
+                0xfff80a6e                INT_Excep_RIIC1_ICRXI1
+                0xfff80a76                INT_Excep_RIIC1_ICTXI1
+                0xfff80a7e                INT_Excep_RIIC1_ICTEI1
+ P              0xfff80a86        0x0 ./src/reset_program.o
+ P              0xfff80a86        0x0 ./src/vector_table.o
+                0xfff80a86                etext = .
+
+.rvectors       0xfff80a88      0x400
+                0xfff80a88                _rvectors_start = .
+ *(.rvectors)
+ .rvectors      0xfff80a88      0x400 ./src/vector_table.o
+                0xfff80a88                RelocatableVectors
+                0xfff80e88                _rvectors_end = .
+
+.init           0xfff80e88        0x0
+ *(.init)
+                0xfff80e88                __preinit_array_start = .
+ *(.preinit_array)
+                0xfff80e88                __preinit_array_end = .
+                0xfff80e88                __init_array_start = ((. + 0x3) & 0xfffffffc)
+ *(.init_array)
+ *(SORT(.init_array.*))
+                0xfff80e88                __init_array_end = .
+                0xfff80e88                __fini_array_start = .
+ *(.fini_array)
+ *(SORT(.fini_array.*))
+                0xfff80e88                __fini_array_end = .
+
+.fini
+ *(.fini)
+
+.got
+ *(.got)
+ *(.got.plt)
+
+.rodata         0xfff80e88        0x0
+ *(.rodata)
+ *(.rodata.*)
+ *(C_1)
+ *(C_2)
+ *(C)
+                0xfff80e88                _erodata = .
+
+.eh_frame_hdr
+ *(.eh_frame_hdr)
+
+.eh_frame
+ *(.eh_frame)
+
+.jcr
+ *(.jcr)
+
+.tors           0xfff80e88        0x0
+                0xfff80e88                __CTOR_LIST__ = .
+                0xfff80e88                . = ALIGN (0x2)
+                0xfff80e88                ___ctors = .
+ *(.ctors)
+                0xfff80e88                ___ctors_end = .
+                0xfff80e88                __CTOR_END__ = .
+                0xfff80e88                __DTOR_LIST__ = .
+                0xfff80e88                ___dtors = .
+ *(.dtors)
+                0xfff80e88                ___dtors_end = .
+                0xfff80e88                __DTOR_END__ = .
+                0xfff80e88                . = ALIGN (0x2)
+                0xfff80e88                _mdata = .
+
+.ustack         0x00000200        0x0
+                0x00000200                _ustack = .
+
+.istack         0x00000100        0x0
+                0x00000100                _istack = .
+
+.data           0x00000204        0x0 load address 0xfff80e88
+                0x00000204                _data = .
+ *(.data)
+ *(.data.*)
+ *(D)
+ *(D_1)
+ D_1            0x00000204        0x0 ./src/Control_LEDs.o
+ D_1            0x00000204        0x0 ./src/hardware_setup.o
+ D_1            0x00000204        0x0 ./src/interrupt_handlers.o
+ D_1            0x00000204        0x0 ./src/reset_program.o
+ D_1            0x00000204        0x0 ./src/vector_table.o
+ *(D_2)
+                0x00000204                _edata = .
+
+.gcc_exc
+ *(.gcc_exc)
+
+.bss            0x00000204        0x0 load address 0xfff80e88
+                0x00000204                _bss = .
+ *(.bss)
+ *(.bss.**)
+ *(COMMON)
+ *(B)
+ *(B_1)
+ B_1            0x00000204        0x0 ./src/Control_LEDs.o
+ B_1            0x00000204        0x0 ./src/hardware_setup.o
+ B_1            0x00000204        0x0 ./src/interrupt_handlers.o
+ B_1            0x00000204        0x0 ./src/reset_program.o
+ B_1            0x00000204        0x0 ./src/vector_table.o
+ *(B_2)
+                0x00000204                _ebss = .
+                0x00000204                _end = .
+LOAD ./src/Control_LEDs.o
+LOAD ./src/hardware_setup.o
+LOAD ./src/interrupt_handlers.o
+LOAD ./src/reset_program.o
+LOAD ./src/vector_table.o
+START GROUP
+LOAD C:\PROGRA~2\GCCFOR~3.201\rx-elf\rx-elf/rx-elf/lib\liboptm.a
+LOAD C:\PROGRA~2\GCCFOR~3.201\rx-elf\rx-elf/rx-elf/lib\liboptc.a
+LOAD C:\PROGRA~2\GCCFOR~3.201\rx-elf\rx-elf/lib/gcc/rx-elf/4.8.4.201701-GNURX\libgcc.a
+END GROUP
+OUTPUT(Control_LEDs.x elf32-rx-le)
+
+.debug_frame    0x00000000     0x15d4
+ .debug_frame   0x00000000       0x4c ./src/Control_LEDs.o
+ .debug_frame   0x0000004c       0x34 ./src/hardware_setup.o
+ .debug_frame   0x00000080     0x1554 ./src/interrupt_handlers.o
+
+.debug_info     0x00000000     0x184b
+ .debug_info    0x00000000      0xae9 ./src/Control_LEDs.o
+ .debug_info    0x00000ae9       0x5a ./src/hardware_setup.o
+ .debug_info    0x00000b43      0xbe5 ./src/interrupt_handlers.o
+ .debug_info    0x00001728       0x9f ./src/reset_program.o
+ .debug_info    0x000017c7       0x84 ./src/vector_table.o
+
+.debug_abbrev   0x00000000      0x1c2
+ .debug_abbrev  0x00000000       0xcc ./src/Control_LEDs.o
+ .debug_abbrev  0x000000cc       0x37 ./src/hardware_setup.o
+ .debug_abbrev  0x00000103       0x44 ./src/interrupt_handlers.o
+ .debug_abbrev  0x00000147       0x14 ./src/reset_program.o
+ .debug_abbrev  0x0000015b       0x67 ./src/vector_table.o
+
+.debug_aranges  0x00000000       0x98
+ .debug_aranges
+                0x00000000       0x20 ./src/Control_LEDs.o
+ .debug_aranges
+                0x00000020       0x20 ./src/hardware_setup.o
+ .debug_aranges
+                0x00000040       0x20 ./src/interrupt_handlers.o
+ .debug_aranges
+                0x00000060       0x20 ./src/reset_program.o
+ .debug_aranges
+                0x00000080       0x18 ./src/vector_table.o
+
+.debug_line     0x00000000      0x315
+ .debug_line    0x00000000       0x72 ./src/Control_LEDs.o
+ .debug_line    0x00000072       0x4a ./src/hardware_setup.o
+ .debug_line    0x000000bc      0x1b6 ./src/interrupt_handlers.o
+ .debug_line    0x00000272       0x6d ./src/reset_program.o
+ .debug_line    0x000002df       0x36 ./src/vector_table.o
+
+.debug_str      0x00000000      0xf65
+ .debug_str     0x00000000      0x11d ./src/Control_LEDs.o
+                                0x122 (size before relaxing)
+ .debug_str     0x0000011d       0x26 ./src/hardware_setup.o
+                                0x108 (size before relaxing)
+ .debug_str     0x00000143      0xde9 ./src/interrupt_handlers.o
+                                0xe8a (size before relaxing)
+ .debug_str     0x00000f2c       0x39 ./src/vector_table.o
+                                 0xe3 (size before relaxing)
+
+.comment        0x00000000       0x2d
+ .comment       0x00000000       0x2d ./src/Control_LEDs.o
+                                 0x2e (size before relaxing)
+ .comment       0x00000000       0x2e ./src/hardware_setup.o
+ .comment       0x00000000       0x2e ./src/interrupt_handlers.o
+ .comment       0x00000000       0x2e ./src/vector_table.o
